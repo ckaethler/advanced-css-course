@@ -56,11 +56,17 @@ body {
     left: 50%;
     /* translates based on actual element, so 50% of element itself */
     transform: translate(-50%, -50%);
+    text-align: center;
 }
 
 .heading-primary {
     color: #fff;
     text-transform: uppercase;
+
+    /* determines if back part of element is visible */
+    backface-visibility: hidden;
+
+    margin-bottom: 60px;
 }
 
 .heading-primary-main {
@@ -68,6 +74,12 @@ body {
     font-size: 60px;
     font-weight: 700;
     letter-spacing: 35px;
+
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    /* animation-iteration-count: 3; */
+    /* animation-delay: 3s; */
 }
 
 .heading-primary-sub {
@@ -75,4 +87,117 @@ body {
     font-size: 20px;
     font-weight: 400;
     letter-spacing: 17.4px;
+
+    animation: moveInRight 1s ease-out;
+    /* animation-iteration-count: 3; */
+    /* animation-delay: 3s; */
+}
+
+@keyframes moveInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+
+    80% {
+        transform: translateX(10px);
+    }
+
+    100% {
+        opacity: 1;
+        translate: translate(0);
+    }
+}
+
+@keyframes moveInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+
+    80% {
+        transform: translateX(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        translate: translate(0);
+    }
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        translate: translate(0);
+    }
+}
+
+/* psuedoclass: state of button selector */
+.btn:link,
+.btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 40px;
+    display: inline-block;
+    border-radius: 100px;
+    /* has to be on initial state */
+    transition: all .2s;
+    /* for the after psuedo element */
+    position: relative;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+}
+
+.btn:active {
+    /* relative to initial state */
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.btn-white {
+    background-color: #fff;
+    color: #777;
+}
+
+/* pseudo element */
+.btn::after {
+    /* have to specify or won't appear */
+    content: "";
+    display: inline-block;
+    /* same dimensions as original */
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    /* puts element behind original */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+}
+
+.btn-white::after {
+    background-color: #fff;
+}
+
+/* after psuedo element only on hovering over it */
+.btn:hover::after {
+    /* appears double size was before */
+    transform: scaleX(1.4) scaleY(1.6);
+    /* fades out */
+    opacity: 0;
+}
+
+.btn-animated {
+    animation: moveInBottom 0.5s ease-out .75s;
+    /* automatically apply styles before animation starts */
+    animation-fill-mode: backwards;
 }
