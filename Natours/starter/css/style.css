@@ -8,16 +8,20 @@ Dark green: #28b485
 */
 
 /* universal selector */
-* {
+*,
+*::after,
+*::before {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: inherit;
 }
 
 /* set for rem mobile-friendly */
 /* 1 rem = 10px; */
+/* 10/16 = 62.5% */
+/* For users who adjust browser defaults */
 html {
-    font-size: 10px;
+    font-size: 62.5%;
 }
 
 /* always put font in body selector */
@@ -30,6 +34,7 @@ body {
     color: #777;
     padding: 3rem;
     font-size: 1.6rem;
+    box-sizing: border-box;
 }
 
 .header {
